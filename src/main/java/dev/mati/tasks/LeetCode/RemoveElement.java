@@ -18,6 +18,23 @@ public class RemoveElement {
                 .limit(k)
                 .toArray()));
     }
+    public static int solution2(int[] nums, int val) {
+        if(nums == null || nums.length == 0) {
+            return 0;
+        }
+        int read = 0;
+        int write = 0;
+        while(read < nums.length) {
+            if(nums[read] != val) {
+                nums[write] = nums[read];
+                write++;
+                read++;
+            } else {
+                read++;
+            }
+        }
+        return write;
+    }
     public static int solution1(int[] nums, int val) {
         int k = nums.length;
         for(int i = 0; i < k; i++) {
@@ -32,16 +49,6 @@ public class RemoveElement {
                 if(k > i) {
                     k--;
                 }
-            }
-        }
-        return k;
-    }
-    public static int solution2(int[] nums, int val) {
-        int k = 0;
-        for(int i = 0; i < nums.length; i++) {
-            if(nums[i] != val) {
-                nums[k] = nums[i];
-                k++;
             }
         }
         return k;

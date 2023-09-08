@@ -1,10 +1,6 @@
 package dev.mati.tasks.LeetCode;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class TopKFrequent {
     public static void main(String[] args) {
@@ -39,28 +35,24 @@ public class TopKFrequent {
         return kMostFrequent;
     }*/
    public static int[] topKFrequent(int[] nums, int k) {
-       int[] kMostFrequent = new int[k];
-       Map<Integer, Integer> valsIndices = new HashMap<>();
+       Map<Integer, Integer> frequencies = new HashMap<>();
        for(int i = 0; i < nums.length; i++ ) {
-           valsIndices.put(nums[i],valsIndices.getOrDefault(nums[i],0) + 1);
+           frequencies.put(nums[i],frequencies.getOrDefault(nums[i],0) + 1);
        }
-       Map<Integer,Integer> mostFrequent = valsIndices.entrySet()
+       Integer[] kMostFrequent = frequencies.entrySet()
                .stream()
-               .sorted(Map.Entry.comparingByValue(
-                       (a,b) -> -Integer.compare(a,b)
-               ))
-               .collect(Collectors.toMap(
-                       Map.Entry::getKey,
-                       Map.Entry::getValue,
-                       (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-
-       int index = 0;
-       for(int key: mostFrequent.keySet()) {
-           if(index >= k)
-               break;
-           kMostFrequent[index] = key;
-           index++;
+                   .sorted(Map.Entry.comparingByValue(
+                           (a,b) -> -Integer.compare(a,b)
+                   ))
+                   .limit(k)
+                   .map(
+                           entry -> entry.getKey()
+                   )
+                   .toArray(Integer[]::new);
+       int[] result = new int[k];
+       for (int i = 0; i < result.length; i++) {
+           result[i] = kMostFrequent[i];
        }
-       return kMostFrequent;
+       return result;
    }
 }

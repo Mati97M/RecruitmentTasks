@@ -13,12 +13,10 @@ public class EncodeDecodeStrings {
         StringBuilder encoded = new StringBuilder();
         char suffix = '#';
         for (String word: strs) {
-            encoded.append(word.length()).append(suffix);
-            for(int i = 0; i < word.length(); i++) {
-                encoded.append(word.charAt(i));
-            }
+            encoded.append(word.length()).append(suffix).append(word);
         }
         return encoded.toString();
+
     }
 
     /*

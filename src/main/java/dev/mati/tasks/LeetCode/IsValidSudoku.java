@@ -21,18 +21,46 @@ public class IsValidSudoku {
     System.out.println(isValidSudoku(board));
     }
     public static boolean isValidSudoku(char[][] board) {
+        var cols = new HashMap<Integer,HashSet>();
+        var subBoxes = new ArrayList<ArrayList<HashSet<Integer>>>(3);   //3x3
+        for(int i = 0; i < board.length; i++) {
+            var row = new HashSet<Integer>();
+            if(i%3 == 0) {
+                subBoxes.add(new ArrayList<>());
+            }
+            HashSet<Integer> col = new HashSet<>();
+            for(int j = 0; j < board[0].length; j++) {
+                if(j%3 == 0) {
+                    subBoxes.get(i/3).add(new HashSet<>());
+                }
+                if(Character.isDigit(board[i][j])) {
+                    int numericValue = Character.getNumericValue(board[i][j]);
+                    //rows validation
+                    if(!row.add(numericValue))
+                        return false;
+                    if(!cols.containsKey(j)) {
+                        cols.put(j,new HashSet<>());
+                    }
+                    //cols validation
+                    if(!cols.get(j).add(numericValue)) {
+                        return false;
+                    }
+                    //subBoxes validation
+                    if(!subBoxes.get(i/3).get(j/3).add(numericValue)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    public static boolean isValidSudoku2(char[][] board) {
         var locations = new HashMap<Integer, LinkedList<Integer>>(9);
         //arraylist cords: xy xy xy
         var subBoxes = new ArrayList<ArrayList<HashSet<Integer>>>(3);   //3x3
 
         for(int i = 0; i < board.length; i++) {
-            if(i%3 == 0) {
-                subBoxes.add(new ArrayList<>());
-            }
             for(int j = 0; j < board[0].length; j++) {
-                if(j%3 == 0) {
-                    subBoxes.get(i/3).add(new HashSet<>());
-                }
                 if(Character.isDigit(board[i][j])) {
                     int numericValue = Character.getNumericValue(board[i][j]);
                     if(!locations.containsKey(numericValue)) {
@@ -45,10 +73,6 @@ public class IsValidSudoku {
                             .add(i);
                     locations.get(numericValue)
                             .add(j);
-                    //subBoxes validation
-                    if(!subBoxes.get(i/3).get(j/3).add(numericValue)) {
-                        return false;
-                    }
                 }
             }
         }
@@ -67,7 +91,6 @@ public class IsValidSudoku {
                 index++;
             }
         }
-
         return true;
     }
 }

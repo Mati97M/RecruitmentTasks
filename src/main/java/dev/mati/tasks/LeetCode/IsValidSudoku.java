@@ -26,7 +26,13 @@ public class IsValidSudoku {
         var subBoxes = new ArrayList<ArrayList<HashSet<Integer>>>(3);   //3x3
 
         for(int i = 0; i < board.length; i++) {
+            if(i%3 == 0) {
+                subBoxes.add(new ArrayList<>());
+            }
             for(int j = 0; j < board[0].length; j++) {
+                if(j%3 == 0) {
+                    subBoxes.get(i/3).add(new HashSet<>());
+                }
                 if(Character.isDigit(board[i][j])) {
                     int numericValue = Character.getNumericValue(board[i][j]);
                     if(!locations.containsKey(numericValue)) {
@@ -39,6 +45,10 @@ public class IsValidSudoku {
                             .add(i);
                     locations.get(numericValue)
                             .add(j);
+                    //subBoxes validation
+                    if(!subBoxes.get(i/3).get(j/3).add(numericValue)) {
+                        return false;
+                    }
                 }
             }
         }
@@ -57,9 +67,6 @@ public class IsValidSudoku {
                 index++;
             }
         }
-
-        // subBoxes
-
 
         return true;
     }

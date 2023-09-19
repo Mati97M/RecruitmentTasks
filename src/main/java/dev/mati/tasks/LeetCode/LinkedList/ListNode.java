@@ -21,6 +21,16 @@ public class ListNode {
         this.next = next;
     }
     public static ListNode getNodes(int... elements) {
+        ListNode dummy = new ListNode();
+        ListNode tail = dummy;
+        for (int el: elements) {
+            ListNode temp = new ListNode(el);
+            tail.next = temp;
+            tail = tail.next;
+        }
+        return dummy.next;
+    }
+    public static ListNode getNodesWithStream(int... elements) {
         if (elements.length == 0)
             return null;
         List<ListNode> nodeList = Arrays.stream(elements)

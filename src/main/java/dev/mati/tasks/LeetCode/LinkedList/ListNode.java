@@ -50,6 +50,21 @@ public class ListNode {
         }
         return nodeList.get(0);
     }
+    public static boolean makeCycle(ListNode head, int pos) {
+        if(head == null)
+            return false;
+
+        ListNode curr = head;
+        for(int i = 0; i < pos && curr.next != null; i++) {
+            curr = curr.next;
+        }
+        ListNode tail = curr;
+        while(tail.next != null) {
+            tail = tail.next;
+        }
+        tail.next = curr;
+        return true;
+    }
     public static void printNodeList(ListNode n) {
         if(n == null){
             System.out.println("[]");

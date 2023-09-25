@@ -12,7 +12,7 @@ public class ReorderList {
         System.out.println();
         ListNode head2 = ListNode.getNodes(0,1,2,3,4,5,6,7,8,9);
         ListNode.printNodeList(head2);
-        reorderListStack(head2);
+        reorderList(head2);
         ListNode.printNodeList(head2);
 
         System.out.println();
@@ -38,5 +38,42 @@ public class ReorderList {
             nodesToInsert--;
         }
         curr.next =  null;
+    }
+    ////////
+    public static void reorderList(ListNode head) {
+        //find two sublists
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        //set pointers
+        ListNode left = head;
+        ListNode right = reverse(slow.next);
+
+        //merge two lists
+        while(right != null) {
+            ListNode nxtL = left.next;
+            ListNode nxtR = right.next;
+
+            left.next = right;
+            right.next = nxtL;
+            left = nxtL;
+            right = nxtR;
+        }
+        left.next = null;
+
+    }
+    public static ListNode reverse(ListNode head) {
+        ListNode curr = head;
+        ListNode prev = null;
+        while(curr != null) {
+            ListNode nxt = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+        return prev; //new head
     }
 }

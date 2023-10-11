@@ -17,4 +17,15 @@ public class TreeNode {
         this.left = left;
         this.right = right;
     }
+
+    public TreeNode getNodeFromBST(int target) {
+        TreeNode curr = this;
+        while(curr != null && curr.val != target) {
+            if(curr.val < target)
+                curr = curr.right;
+            else
+                curr = curr.left;
+        }
+        return curr;
+    }
 }

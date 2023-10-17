@@ -1,4 +1,4 @@
-package dev.mati.tasks.LeetCode;
+package dev.mati.tasks.LeetCode.ArraysHashing;
 
 import java.util.HashMap;
 import java.util.HashSet;

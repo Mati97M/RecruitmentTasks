@@ -1,4 +1,4 @@
-package dev.mati.tasks.LeetCode;
+package dev.mati.tasks.LeetCode.Stack;
 
 import java.util.Collections;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package dev.mati.tasks.LeetCode;
+package dev.mati.tasks.LeetCode.TwoPointers;
 
 import java.util.ArrayList;
 import java.util.Arrays;

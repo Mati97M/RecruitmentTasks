@@ -1,4 +1,4 @@
-package dev.mati.tasks.LeetCode;
+package dev.mati.tasks.LeetCode.TwoPointers;
 
 public class TrappingRainWater {
     public static void main(String[] args) {

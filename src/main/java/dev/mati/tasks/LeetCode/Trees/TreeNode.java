@@ -28,4 +28,8 @@ public class TreeNode {
         }
         return curr;
     }
+
+    public int getVal() {
+        return val;
+    }
 }

@@ -4,8 +4,23 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MissingInteger {
+    public static int PerfectSolution(int[] A) { //
+        HashSet<Integer> nums = new HashSet<Integer>();
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < A.length; i++) {
+            nums.add(A[i]);
+            max = Integer.max(max, A[i]);
+        }
+        if(max <= 0)
+            return 1;
 
-    public static int PerfectSolution(int[] A) {    //100%    O(N) or O(N * log(N))
+        for(int i = 1; i <= max; i++) {
+            if(!nums.contains(i))
+                return i;
+        }
+        return max + 1;
+    }
+    public static int PerfectSolution2(int[] A) {    //100%    O(N) or O(N * log(N))
         Set<Integer> positiveNumbers = new HashSet<>();
         int maxVal = 1_000_000;
 

@@ -24,7 +24,14 @@ public class SubtreeOfAnotherTree {
 
         return (isSubtree(root.left, subRoot) ||
                 isSubtree(root.right,subRoot));
-
+    }
+    private static boolean isTheSame(TreeNode root1, TreeNode root2) {
+        if(root1 == null && root2 == null)
+            return true;
+        if(root1 != null && root2 != null && root1.val == root2.val)
+            return isTheSame(root1.left, root2.left) &&
+                    isTheSame(root1.right, root2.right);
+        return false;
     }
 
     public static boolean isSubtree2(TreeNode root, TreeNode subRoot) {
@@ -46,40 +53,4 @@ public class SubtreeOfAnotherTree {
         }
         return false;
     }
-    private static boolean isTheSame(TreeNode root1, TreeNode root2) {
-        if(root1 == null && root2 == null)
-            return true;
-        if(root1 == null || root2 == null)
-            return false;
-        if(root1.val != root2.val)
-            return false;
-
-        return isTheSame(root1.left,root2.left) && isTheSame(root1.right, root2.right);
-
-    }
-        /*public static boolean isSubtree3(TreeNode root, TreeNode subRoot) { //needs to be fixed
-        ArrayList<Integer> r = new ArrayList<>();
-        ArrayList<Integer> s = new ArrayList<>();
-
-        dfs(root,r);
-        dfs(subRoot,s);
-
-        var rIt = r.iterator();
-        var sIt = s.iterator();
-
-        while(sIt.hasNext()) {
-            if(sIt.next() != rIt.next())
-                return false;
-        }
-        return true;
-    }
-    private static void dfs(TreeNode root, ArrayList<Integer> arr) {
-        if(root == null) {
-            arr.add(null);
-            return;
-        }
-        dfs(root.left,arr);
-        dfs(root.right,arr);
-        arr.add(root.val);
-    }*/
 }

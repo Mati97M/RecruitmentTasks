@@ -16,8 +16,8 @@ public class BinaryTreeRightSideView {
 
         LinkedList<TreeNode> q = new LinkedList<>();
         q.offer(root);
-        result.add(root.val);
         while(!q.isEmpty()) {
+            result.add(q.peekLast().val);
             int size = q.size();
             for(int i = 0; i < size; i++) {
                 TreeNode node = q.poll();
@@ -26,9 +26,6 @@ public class BinaryTreeRightSideView {
                 if(node.right != null)
                     q.offer(node.right);
             }
-            TreeNode last = q.peekLast();
-            if(last != null)
-                result.add(last.val);
         }
         return result;
     }

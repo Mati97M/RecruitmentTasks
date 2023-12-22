@@ -30,11 +30,7 @@ public class ThreeSum {
                     continue;
                 }
                 if(nums[e] + nums[m] == -nums[s]) {
-                    ArrayList<Integer> triplet = new ArrayList<>();
-                    triplet.add(nums[s]);
-                    triplet.add(nums[m]);
-                    triplet.add(nums[e]);
-                    triplets.add(triplet);
+                    triplets.add(List.of(nums[s], nums[m], nums[e]));
                     m++;
 
                 } else if(nums[e] + nums[m] > -nums[s]) {

@@ -1,65 +1,32 @@
 package dev.mati.tasks.LeetCode.Trees;
 
 public class BalancedBinaryTree {
-    private static boolean isBalanced = true;
-
+    private boolean isBalanced = true;
     public static void main(String[] args) {
         TreeNode root = TreeBuilder.getTreeFromArr(1);
-        System.out.println(isBalanced(root));
+        System.out.println(new BalancedBinaryTree().isBalanced(root));
 
         root = TreeBuilder.getTreeFromArr(3,9,20,null,null,15,7);
-        System.out.println(isBalanced(root));
+        System.out.println(new BalancedBinaryTree().isBalanced(root));
+
 
         root = TreeBuilder.getTreeFromArr(1,2,2,3,3,null,null,4,4);
-        System.out.println(isBalanced(root));
+        System.out.println(new BalancedBinaryTree().isBalanced(root));
     }
-    public static boolean isBalanced(TreeNode root) {
-        if(root == null)
-            return true;
-        boolean[] balanced = {true};
-        dfsBalanced(root, balanced);
-        return balanced[0];
-    }
-    public static int dfsBalanced(TreeNode root,  boolean[] balanced) {
-        if(root.left == null && root.right == null)
-            return 1;
-
-        int left = 0;
-        int right = 0;
-
-        if(root.left != null)
-            left = dfsBalanced(root.left, balanced);
-        if(root.right != null)
-            right = dfsBalanced(root.right, balanced);
-
-        if(Math.abs(left - right) > 1)
-            balanced[0] = false;
-
-        return 1 + Integer.max(left,right);
-
-    }
-    public static boolean isBalanced2(TreeNode root) { //leetcode gives different result for [1]
-        if(root == null)
-            return true;
-        dfsBalanced(root);
+    ///////////
+    public boolean isBalanced(TreeNode root) {
+        if(root == null) return true;
+        getHeightDFS(root);
         return isBalanced;
     }
-    public static int dfsBalanced(TreeNode root) { //leetcode gives different result for [1]
-        if(root.left == null && root.right == null)
-            return 1;
-
-        int left = 0;
-        int right = 0;
-
-        if(root.left != null)
-            left = dfsBalanced(root.left);
-        if(root.right != null)
-            right = dfsBalanced(root.right);
-
-        if(Math.abs(left - right) > 1)
-            isBalanced = false;
-
-        return 1 + Integer.max(left,right);
-
+    private int getHeightDFS(TreeNode root) {
+        if(root == null) return 0;
+        int lH = getHeightDFS(root.left);
+        int rH = getHeightDFS(root.right);
+        areBalanced(lH, rH);
+        return 1 + Integer.max(lH, rH);
+    }
+    private void areBalanced(int h1, int h2) {
+        isBalanced = Math.abs(h1 - h2) <= 1 &&  isBalanced;
     }
 }
